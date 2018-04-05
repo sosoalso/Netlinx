@@ -1,48 +1,49 @@
 
-PROGRAM_NAME='yeoul'
-
+///////////////////////
+PROGRAM_NAME='yeoul' //
+///////////////////////
 
 /**
- * FILE LAST MODIFIED ON : 04/01/2018
+ * FILE LAST MODIFIED ON : 04/05/2018
  * 
  * HISTORY
  *     V 1.0 INITIAL
  *     V 1.0.1 ADD SOME FUNCTIONS..
  */
 
-/////////////////
-define_constant//
-/////////////////
+//////////////////
+DEFINE_CONSTANT //
+//////////////////
 
-dev DV_LOG = 0:1:0;
+DEV DV_LOG = 0:1:0;
 
 // MODERO FUNCTION
-char MODERO_CMD_PAGE_FLIP[]   = 'PAGE-';
-char MODERO_CMD_POPUP_SHOW[]  = 'PPON-';
-char MODERO_CMD_POPUP_HIDE[]  = 'PPOF-';
+CHAR MODERO_CMD_PAGE_FLIP[]   = 'PAGE-';
+CHAR MODERO_CMD_POPUP_SHOW[]  = 'PPON-';
+CHAR MODERO_CMD_POPUP_HIDE[]  = 'PPOF-';
 
-char MODERO_CMD_POPUP_CLOSE_ALL[]            = '@PPX';
-char MODERO_CMD_POPUP_CLOSE_ALL_ON_PAGE[]    = '@PPA-';
-char MODERO_CMD_POPUP_CLOSE_GROUP[]          = '^PCL-';
+CHAR MODERO_CMD_POPUP_CLOSE_ALL[]            = '@PPX';
+CHAR MODERO_CMD_POPUP_CLOSE_ALL_ON_PAGE[]    = '@PPA-';
+CHAR MODERO_CMD_POPUP_CLOSE_GROUP[]          = '^PCL-';
 
-char MODERO_CMD_BUTTON_ASSIGN_TEXT[]         = '^TXT-';
-char MODERO_CMD_BUTTON_ASSIGN_UNICODE_TEXT[] = '^UNI-';
-char MODERO_CMD_BUTTON_APPEND_TEXT[]         = '^BAT-';
-char MODERO_CMD_BUTTON_APPEND_UNICODE_TEXT[] = '^BAU-';
+CHAR MODERO_CMD_BUTTON_ASSIGN_TEXT[]         = '^TXT-';
+CHAR MODERO_CMD_BUTTON_ASSIGN_UNICODE_TEXT[] = '^UNI-';
+CHAR MODERO_CMD_BUTTON_APPEND_TEXT[]         = '^BAT-';
+CHAR MODERO_CMD_BUTTON_APPEND_UNICODE_TEXT[] = '^BAU-';
 
 // MENU FUNCTION
 
-char PAGELIST[8][2] =
+CHAR PAGELIST[8][2] =
 {
     {'1'}, {'2'}, {'3'}, {'4'}, {'5'}, {'6'}, {'7'}, {'8'}
 };
 
-char SIDEBARLIST[8][3] =
+CHAR SIDEBARLIST[8][3] =
 {
     {'01'}, {'02'}, {'03'}, {'04'}, {'05'}, {'06'}, {'07'}, {'08'}
 };
 
-char POPUPBODYLIST[8][8][4] =
+CHAR POPUPBODYLIST[8][8][4] =
 {
     { {'101'}, {'102'}, {'103'}, {'104'}, {'105'}, {'106'}, {'107'}, {'108'} },
     { {'201'}, {'202'}, {'203'}, {'204'}, {'205'}, {'206'}, {'207'}, {'208'} },
@@ -54,18 +55,18 @@ char POPUPBODYLIST[8][8][4] =
     { {'801'}, {'802'}, {'803'}, {'804'}, {'805'}, {'806'}, {'807'}, {'808'} }
 };
 
-integer BTN_MENU[8]    = { 101, 102, 103, 104, 105, 106, 107, 108 };
-integer BTN_SIDEBAR[8] = { 201, 202, 203, 204, 205, 206, 207, 208 };
+INTEGER BTN_MENU[8]    = { 101, 102, 103, 104, 105, 106, 107, 108 };
+INTEGER BTN_SIDEBAR[8] = { 201, 202, 203, 204, 205, 206, 207, 208 };
 
-/////////////////
-define_variable//
-/////////////////
+//////////////////
+DEFINE_VARIABLE //
+//////////////////
 
 integer yeoulDebugMode = 0;
 
-/////////////////////
-// define_function //
-/////////////////////
+////////////////////
+//define_function //
+////////////////////
 
     // MODERO
 define_function SetPage(dev tp, char pageName[])
@@ -102,11 +103,12 @@ define_function SetButtonTextUnicodeAppend(dev tp, integer btnAdrCde, char unico
 { SendCommand(tp, "MODERO_CMD_BUTTON_APPEND_UNICODE_TEXT, itoa(btnAdrCde), ',0,', unicodeTextString"); }
 
 
+
+define_function char[11] DevToString(dev device)
+{ return "itoa(device.number), ':', itoa(device.port), ':', itoa(device.system)"; }
+
 define_function Log(char send[])
-{
-    send_string DV_LOG, send;
-}
-// send str cmd w/ debugging func.
+{ send_string DV_LOG, send; }
 
 define_function char[100] SendString(dev device, char send[])
 {
@@ -151,17 +153,6 @@ define_function SetPulse(dev device, integer ch, integer pulsetime)
     if (yeoulDebugMode) Log("'SetPulse(), ', DevToString(device)");
 }
 
-
-
-
-
-define_function char[11] DevToString(dev device)
-{
-    return "itoa(device.number), ':', itoa(device.port), ':', itoa(device.system)";
-}
-
-
-
 define_function integer Func255to100Scaler(integer value)
 {
     double value_double;
@@ -188,11 +179,11 @@ define_function integer Func100to255Scaler(integer value)
     }
 }
 
-//////////////
-define_start//
-//////////////
+///////////////
+DEFINE_START //
+///////////////
 
-////////////////
-define_program//
-////////////////
+/////////////////
+DEFINE_PROGRAM //
+/////////////////
 {}
